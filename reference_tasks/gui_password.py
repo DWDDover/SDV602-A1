@@ -1,5 +1,5 @@
 from FreeSimpleGUI import Window, Button, Text, Input, Checkbox, WIN_CLOSED, Multiline
-from password_gen import generate_password
+from reference_tasks.password_gen import generate_password
 
 
 def make_window():

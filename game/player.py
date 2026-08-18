@@ -3,4 +3,4 @@ class Player:
         self.maxHp = 100
         self.currentHp = 100
         self.attack = 1
-        self.
+        self.defense = 1

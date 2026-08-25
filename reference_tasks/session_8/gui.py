@@ -44,7 +44,7 @@ class GUI():
         return sg.Window('Adventure Game', layout, size=(400, 200))
     
     def run(self):
-     while True:
+        while True:
             event, values = window.read()
             if event == 'Enter':
                 command_success = False
@@ -125,4 +125,4 @@ class GUI():
             elif event == 'Exit' or event is None or event == sg.WIN_CLOSED:
                 break
             
-    window.close()
+        window.close()

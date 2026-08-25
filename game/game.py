@@ -10,18 +10,39 @@ class Game:
 
 # locations created initially with string references
 village = Location("Village", "A small village consisting of some crude huts and farmland",
-                    {"north": "forest", "east": "lake", "south": "cave_mouth"}, [], [])
+                    {"North": "forest", "East": "lake", "South": "cave_mouth"}, [], [])
 
 forest = Location("Forest", "A dense dark forest",
-                   {"west": "castle", "east": "clearing", "south": "village"}, [], [])
+                   {"West": "castle", "East": "clearing", "South": "village"}, [], [])
+
+clearing = Location("Clearing", "A sunlit forest clearing, you see a goblin wandering around",
+                   {"West": "forest"}, [goblin], [])
+
+castle = Location("Castle", "You are in a castle, you see stairs leading upwards to your right and a large heavy door to your left",
+                   {"Door": "dungeon", "East": "forest", "Stairs": "tower"}, [], [])
+
+tower = Location("Tower", "You come face to face with a wizard",
+                   {"Stairs": "castle"}, [wizard], [])
+
+dungeon = Location("Dungeon", "A gloomy damp dungeon",
+                   {"Door": "castle"}, [], [sharp_sword])
+
+lake = Location("Lake", "You are on the shore of a huge blue lake surrounded by reeds",
+                   {"West": "village"}, [], [fire_potion])
+
+cave_mouth = Location("Cave mouth", "You are at the mouth of a large dark cave",
+                   {"North": "village", "Cave Entrance" : "cave"}, [], [rusty_sword])
+
+cave = Location("Cave mouth", "You are in a large well lit cave surrounded by bones and rocks, you can see a rat wandering the clearing",
+                   {"West": "village"}, [rat], [])
 
 
 #location dictionary
-all_locations = {"village": village, "forest": forest}  # add the rest here
+locations = {"village": village, "forest": forest}  # add the rest here
 
-#replace all the string values with the actual loaction objects
-for location in all_locations.values():
+#replace all the string values with the actual location objects
+for location in locations.values():
     location.directions = {
-        direction: all_locations[name]
+        direction: locations[name]
         for direction, name in location.directions.items()
     }

@@ -6,4 +6,4 @@ class Player:
         self.defense = 1
         
     def __str__(self):
-        return "HP: " + str(self.current_hp) + "/" + str(self.max_hp) + "\nAttack: " + str(self.attack) + "\nDefense: " + str(self.defense)
+        return "HP: " + str(self.current_hp) + "/" + str(self.max_hp) + "\nAttack: " + str(self.attack) + "\nDefense: " + str(self.defense) + "\n"

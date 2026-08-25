@@ -30,14 +30,14 @@ class GUI:
             graph_bottom_left=(0, 0),
             graph_top_right=(100, 100),
             key='-CANV-',
-            background_color="FFFFFF",
+            background_color="#FFFFFF",
         )
 
         layout = [
             [graph, sg.Text(str(game.player) + str(game.current_location.description), size=(100, 4), font='Any 12', key='-OUTPUT-')],
             [command_col],
         ]
-        return sg.Window('Adventure Game', layout, size=(400, 200))
+        return sg.Window('Declans Game', layout, size=(800, 400))
     
     def run(self):
         while True:

@@ -8,15 +8,18 @@ class Game:
     def __init__(self):
         self.player = Player()
         self.current_location = village
+        
+    def move(self, direction):
+        self.current_location = self.current_location[direction]
 
 # locations created initially with string references
-village = Location("Village", "A small village consisting of some crude huts and farmland",
+village = Location("Village", "You are in a small village consisting of some crude huts and farmland",
                     {"North": "forest", "East": "lake", "South": "cave_mouth"}, [], [], "./images/village.png")
 
-forest = Location("Forest", "A dense dark forest",
+forest = Location("Forest", "You are in a dense dark forest",
                    {"West": "castle", "East": "clearing", "South": "village"}, [], [], "./images/village.png")
 
-clearing = Location("Clearing", "A sunlit forest clearing, you see a goblin wandering around",
+clearing = Location("Clearing", "Your are in a sunlit forest clearing, you see a goblin wandering around",
                    {"West": "forest"}, [goblin], [], "./images/village.png")
 
 castle = Location("Castle", "You are in a castle, you see stairs leading upwards to your right and a large heavy door to your left",

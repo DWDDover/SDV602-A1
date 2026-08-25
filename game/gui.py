@@ -1,10 +1,10 @@
 import FreeSimpleGUI as sg
 from game import Game
 
-class GUI():
+class GUI:
     def __init__(self, game: Game):
         self.game = game
-        self.window = self.create_window(self, game)
+        self.window = self.create_window(game)
         
     def create_window(self, game):
         """Create and return the main application window.
@@ -23,14 +23,14 @@ class GUI():
         buttons = [sg.Button('Enter', bind_return_key=True), sg.Button('Exit')]
         command_col = sg.Column([prompt_input, buttons], element_justification='r')
 
-        colour = game.get_current_location().colour
+        image = game.current_location.image
 
         graph = sg.Graph(
             canvas_size=(100, 100),
             graph_bottom_left=(0, 0),
             graph_top_right=(100, 100),
             key='-CANV-',
-            background_color=colour,
+            background_image=image,
         )
 
         layout = [

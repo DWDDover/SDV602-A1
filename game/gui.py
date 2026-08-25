@@ -23,22 +23,27 @@ class GUI:
         buttons = [sg.Button('Enter', bind_return_key=True), sg.Button('Exit')]
         command_col = sg.Column([prompt_input, buttons], element_justification='r')
 
-        image = game.current_location.image
+        image = self.game.current_location.image
 
         graph = sg.Graph(
             canvas_size=(100, 100),
             graph_bottom_left=(0, 0),
             graph_top_right=(100, 100),
             key='-CANV-',
-            background_image=image,
+            background_color="FFFFFF",
         )
 
         layout = [
-            [graph, sg.Text('HP: ' + str(game.player.health_current) + '/' + str(game.player.health_max) +
-                            ' DMG: ' + str(game.player.damage) + ' BLOCK: ' + str(game.player.block) +
-                            '\n' +
-                            str(game.get_current_location().story), size=(
-                100, 4), font='Any 12', key='-OUTPUT-')],
+            [graph, sg.Text(str(game.player) + str(game.current_location.description), size=(100, 4), font='Any 12', key='-OUTPUT-')],
             [command_col],
         ]
         return sg.Window('Adventure Game', layout, size=(400, 200))
+    
+    def run(self):
+        while True:
+            event, values = self.window.read()
+            
+            if event == sg.WIN_CLOSED or event == 'Cancel': # if user closes window or clicks cancel
+                break
+            
+        self.window.close()

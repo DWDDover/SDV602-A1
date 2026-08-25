@@ -1,7 +1,8 @@
 from FreeSimpleGUI import Window, Button, Text, Input, Checkbox, WIN_CLOSED, Multiline, Radio
 from player import Player
-from item import Item
+from items import rusty_sword, sharp_sword, fire_potion
 from location import Location
+from enemies import rat, goblin, wizard
 
 class Game:
     def __init__(self):
@@ -35,7 +36,6 @@ cave_mouth = Location("Cave mouth", "You are at the mouth of a large dark cave",
 
 cave = Location("Cave mouth", "You are in a large well lit cave surrounded by bones and rocks, you can see a rat wandering the clearing",
                    {"West": "village"}, [rat], [])
-
 
 #location dictionary
 locations = {"village": village, "forest": forest}  # add the rest here

@@ -1,6 +1,4 @@
 class File_manager:
-    def __init__(self):
-        ...
         
     def write_file(self, file_name, content):
         

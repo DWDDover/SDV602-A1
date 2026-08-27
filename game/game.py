@@ -10,11 +10,18 @@ class Game:
         self.current_location = village
         
     def move(self, direction):
-        self.current_location = self.current_location[direction]
+        if direction in self.current_location.directions:
+            self.current_location = self.current_location.directions[direction]
+            print(str(self.current_location.description))
+            return str(self.current_location.description)
+        else:
+            return "You cannot travel there"
+        
+    
 
 # locations created initially with string references
 village = Location("Village", "You are in a small village consisting of some crude huts and farmland",
-                    {"North": "forest", "East": "lake", "South": "cave_mouth"}, [], [], "./images/village.png")
+                    {"north": "forest", "east": "lake", "south": "cave_mouth"}, [], [], "./images/village.png")
 
 forest = Location("Forest", "You are in a dense dark forest",
                    {"West": "castle", "East": "clearing", "South": "village"}, [], [], "./images/village.png")

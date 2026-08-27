@@ -42,8 +42,26 @@ class GUI:
     def run(self):
         while True:
             event, values = self.window.read()
-            
-            if event == sg.WIN_CLOSED or event == 'Cancel': # if user closes window or clicks cancel
+            if event == 'Enter':
+                command_complete = False
+                output_message = self.game.current_location.description
+
+                input = values['-IN-'].lower()
+
+                if input.split(' ', 1)[0] == "travel":
+                    output_message = self.game.move(input.split(' ', 1)[1])
+
+                    command_complete = True
+                    
+                if command_complete:
+                    self.window['-OUTPUT-'].update(
+                        value=str(self.game.player) +
+                        '\n' + output_message
+                    )
+                    self.window['-IN-'].update(value='')
+                    output_message = ''
+                    
+            elif event == 'Exit' or event is None or event == sg.WIN_CLOSED:
                 break
             
         self.window.close()

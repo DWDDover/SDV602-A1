@@ -24,7 +24,7 @@ village = Location("Village", "You are in a small village consisting of some cru
                     {"north": "forest", "east": "lake", "south": "cave_mouth"}, [], [], "./images/village.png")
 
 forest = Location("Forest", "You are in a dense dark forest",
-                   {"west": "castle", "east": "clearing", "south": "village"}, [], [], "./images/village.png")
+                   {"west": "castle", "east": "clearing", "south": "village"}, [], [], "./images/forest.png")
 
 clearing = Location("Clearing", "Your are in a sunlit forest clearing, you see a goblin wandering around",
                    {"west": "forest"}, [goblin], [], "./images/village.png")

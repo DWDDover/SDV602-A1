@@ -26,7 +26,7 @@ class GUI:
         image = self.game.current_location.image
 
         graph = sg.Graph(
-            canvas_size=(100, 100),
+            canvas_size=(200, 200),
             graph_bottom_left=(0, 0),
             graph_top_right=(100, 100),
             key='-CANV-',

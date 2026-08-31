@@ -6,5 +6,5 @@ class Combat:
         self.player = player
         self.enemy = enemy
 
-    def fight():
+    def fight(self, enemy, player):
         ...

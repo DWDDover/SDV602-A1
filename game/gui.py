@@ -1,7 +1,5 @@
 import FreeSimpleGUI as sg
 from game import Game
-from combat import Combat
-from item import Item
 
 # Reference text for the "Commands" popup, sourced from the design spec.
 COMMANDS_HELP = [
@@ -9,8 +7,7 @@ COMMANDS_HELP = [
     ("pick up <item>", "Pick up an item and add it to your inventory"),
     ("equip <item>", "Equip a valid item from your inventory, e.g. a sword or helmet"),
     ("engage", "If the location has a monster, engage it and start combat"),
-    ("use", "Use a consumable item from your inventory")
-    ("escape", "In combat: attempt to flee (may fail)"),
+    ("use", "Use a consumable item from your inventory"),
     ("inventory", "List the items in your inventory"),
     ("exit", "Exit the application from any screen"),
 ]
@@ -42,8 +39,8 @@ class GUI:
         )
         #Player stats
         stats_output = sg.Multiline(
-            default_text='', size=(50, 6), font='Any 12', key='-OUTPUT-',
-            disabled=True, no_scrollbar=True,
+            default_text='', size=(50, 12), font='Any 12', key='-OUTPUT-',
+            disabled=True, autoscroll=True,
         )
         #list of available directions
         directions_list = sg.Listbox(
@@ -90,12 +87,14 @@ class GUI:
             graph.draw_rectangle((10, 10), (250, 250), fill_color='#DDDDDD', line_color='black')
             graph.draw_text(self.game.current_location.name, (130, 130), font='Any 14')
 
-    def refresh_display(self):
-        #update the GUI
+    def refresh_display(self, message=None):
+        #update the GUI. message overrides the location description in the main
+        #text window (e.g. a combat log, or a failed-travel message) when given.
         player = self.game.player
         location = self.game.current_location
+        text = message if message is not None else location.description
 
-        self.window['-OUTPUT-'].update(value=str(player) + '\n' + location.description)
+        self.window['-OUTPUT-'].update(value=str(player) + '\n' + text)
         self.window['-DIRECTIONS-'].update(values=sorted(location.directions.keys()))
         self.window['-INVENTORY-'].update(values=[item.name for item in player.inventory.items])
     #show the command list popup
@@ -107,39 +106,13 @@ class GUI:
             size=(60, len(COMMANDS_HELP) + 2),
             font='Any 11',
         )
-    #gui function for comabt
-    def handle_engage(self):
-        location = self.game.current_location
 
-        if not location.enemies:
-            sg.popup('There is nothing here to engage.', title='Engage')
-            return
-
-        enemy = location.enemies[0]
-        result = Combat(self.game.player, enemy).fight()
-
-        sg.popup_scrolled(
-            '\n'.join(result['log']),
-            title=f"Combat: {enemy.name}",
-            size=(60, len(result['log']) + 2),
-            font='Any 11',
-        )
-
-        if result['outcome'] == 'win':
-            location.enemies.remove(enemy)
-            if isinstance(enemy.loot, Item):
-                self.game.player.inventory.add_item(enemy.loot)
-                sg.popup(f"You loot a {enemy.loot.name}.", title='Loot')
-        else:
-            self.end_game(f"You were defeated by the {enemy.name}. Game over.")
-
-    def end_game(self, message):
-        #if the player loses disbale all buttons except exit
+    def end_game(self):
+        #if the player loses disable all inputs except exit
         self.game_over = True
-        self.window['-IN-'].update(value='', disabled=True)
+        self.window['-IN-'].update(disabled=True)
         self.window['Enter'].update(disabled=True)
         self.window['Commands'].update(disabled=True)
-        sg.popup(message, title='Game Over')
 
     def run(self):
         while True:
@@ -151,14 +124,23 @@ class GUI:
 
                 if command.split(' ', 1)[0] == "travel" and ' ' in command:
                     output_message = self.game.move(command.split(' ', 1)[1])
+
                 elif command == "engage":
-                    self.handle_engage()
-                    output_message = ''
+                    output_message = self.game.engage()
+
+                elif command == "":
+                    output_message = None  # ignore an empty Enter press, no need for an error
+
+                else:
+                    output_message = f"Unknown command: '{command}'. Click Commands to see the full list."
 
                 if output_message is not None:
                     self.draw_location_image()
-                    self.refresh_display()
+                    self.refresh_display(message=output_message)
                     self.window['-IN-'].update(value='')
+
+                    if self.game.player.current_hp <= 0:
+                        self.end_game()
 
             elif event == 'Commands':
                 self.show_commands_popup()

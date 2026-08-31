@@ -4,8 +4,8 @@ class Player:
     def __init__(self):
         self.max_hp = 100
         self.current_hp = 100
-        self.attack = 1
-        self.defense = 1
+        self.attack = 2
+        self.defense = 2
         self.inventory = Inventory()
         
     def __str__(self):

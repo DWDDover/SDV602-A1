@@ -3,6 +3,8 @@ from player import Player
 from items import rusty_sword, sharp_sword, fire_potion
 from location import Location
 from enemies import rat, goblin, wizard
+from combat import Combat
+from item import Item
 
 class Game:
     def __init__(self):
@@ -17,6 +19,24 @@ class Game:
         else:
             return "You cannot travel there"
         
+    def engage(self):
+        location = self.current_location
+
+        if not location.enemies:
+            return "There is nothing here to engage."
+
+        enemy = location.enemies[0]
+        result = Combat(self.player, enemy).fight()
+        message = '\n'.join(result["log"])
+
+        if result["outcome"] == "win":
+            location.enemies.remove(enemy)
+            loot = enemy.loot if isinstance(enemy.loot, Item) else None
+            if loot:
+                self.player.inventory.add_item(loot)
+                message += f"\nYou loot a {loot.name}."
+
+        return message
     
 
 # locations created initially with string references

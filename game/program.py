@@ -2,7 +2,7 @@ from player import Player
 from game import Game
 from gui import GUI
 
-# This fixes the display of the window on my PC for some reason
+#This fixes the display of the window on my PC for some reason
 try:
     import ctypes
     ctypes.windll.shcore.SetProcessDpiAwareness(1)

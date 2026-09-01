@@ -129,6 +129,9 @@ class GUI:
                     
                 elif command == "search":
                     output_message = self.game.search()
+                    
+                elif command.split(' ', 1)[0] == "use" and ' ' in command:
+                        output_message = self.game.use(command.split(' ', 1)[1])
 
                 elif command == "":
                     output_message = None  # ignore an empty Enter press, no need for an error

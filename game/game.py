@@ -39,7 +39,7 @@ class Game:
         return message
     
 
-# locations created initially with string references
+#locations created initially with string references
 village = Location("Village", "You are in a small village consisting of some crude huts and farmland",
                     {"north": "forest", "east": "lake", "south": "cave_mouth"}, [], [], "./images/village.png")
 
@@ -47,25 +47,25 @@ forest = Location("Forest", "You are in a dense dark forest",
                    {"west": "castle", "east": "clearing", "south": "village"}, [], [], "./images/forest.png")
 
 clearing = Location("Clearing", "Your are in a sunlit forest clearing, you see a goblin wandering around",
-                   {"west": "forest"}, [goblin], [], "./images/village.png")
+                   {"west": "forest"}, [goblin], [], "./images/forest_clearing.png")
 
 castle = Location("Castle", "You are in a castle, you see stairs leading upwards to your right and a large heavy door to your left",
-                   {"door": "dungeon", "east": "forest", "stairs": "tower"}, [], [], "./images/village.png")
+                   {"door": "dungeon", "east": "forest", "stairs": "tower"}, [], [], "./images/castle.png")
 
 tower = Location("Tower", "You come face to face with a wizard",
-                   {"stairs": "castle"}, [wizard], [], "./images/village.png")
+                   {"stairs": "castle"}, [wizard], [], "./images/tower.png")
 
 dungeon = Location("Dungeon", "A gloomy damp dungeon",
-                   {"door": "castle"}, [], [sharp_sword], "./images/village.png")
+                   {"door": "castle"}, [], [sharp_sword], "./images/dungeon.png")
 
 lake = Location("Lake", "You are on the shore of a huge blue lake surrounded by reeds",
-                   {"west": "village"}, [], [fire_potion], "./images/village.png")
+                   {"west": "village"}, [], [fire_potion], "./images/lake.png")
 
 cave_mouth = Location("Cave mouth", "You are at the mouth of a large dark cave",
-                   {"north": "village", "cave entrance" : "cave"}, [], [rusty_sword], "./images/village.png")
+                   {"north": "village", "cave entrance" : "cave"}, [], [rusty_sword], "./images/cave_mouth.png")
 
 cave = Location("Cave", "You are in a large well lit cave surrounded by bones and rocks, you can see a rat wandering the clearing",
-                   {"west": "village"}, [rat], [], "./images/village.png")
+                   {"west": "village"}, [rat], [], "./images/cave.png")
 
 #location dictionary
 locations = {

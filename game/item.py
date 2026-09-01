@@ -6,4 +6,3 @@ class Item:
         self.damage = damage
         self.slot = slot
         self.used = False
-        self.equipped = False

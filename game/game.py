@@ -29,8 +29,28 @@ class Game:
             self.player.inventory.add_item(item)
             return(f"You have found a {item.name}")
         
-    def equip(self, item):
-        ...
+    def equip(self, item_name):
+        item = self.player.inventory.get_item_by_name(item_name)
+
+        if item is None:
+            return f"You don't have a {item_name}."
+
+        if not hasattr(self.player.equipment, item.slot):
+            return f"{item.name} cannot be equipped."
+
+        previous = getattr(self.player.equipment, item.slot)
+        if previous is not None:
+            # remove the old item's stat bonus before applying the new one
+            self.player.attack -= previous.damage
+            self.player.defense -= previous.block
+
+        setattr(self.player.equipment, item.slot, item)
+        self.player.attack += item.damage
+        self.player.defense += item.block
+
+        if previous:
+            return f"You equip the {item.name} in your {item.slot} slot, replacing the {previous.name}."
+        return f"You equip the {item.name} in your {item.slot} slot."
         
     def use(self, item_name):
         
@@ -39,11 +59,9 @@ class Game:
         if self.player.inventory.has_item(item):
             if item == health_potion:
                 self.player.current_hp = min(self.player.current_hp + item.heal, self.player.max_hp)
-                self.player.inventory.remove(item)
                 return f"You heal for {item.heal} HP"
             elif item == fire_potion:
                 self.player.fire_resistant = True
-                self.player.inventory.remove(item)
                 return "You are now fire resistant"
             else:
                 return "That item is not a consumable"

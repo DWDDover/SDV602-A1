@@ -95,7 +95,10 @@ class GUI:
 
         self.window['-OUTPUT-'].update(value=str(player) + '\n' + text)
         self.window['-DIRECTIONS-'].update(values=sorted(location.directions.keys()))
-        self.window['-INVENTORY-'].update(values=[item.name for item in player.inventory.items])
+        equipped_items = {player.equipment.weapon, player.equipment.head, player.equipment.armor}
+        self.window['-INVENTORY-'].update(
+            values=[f"{item.name} (equipped)" if item in equipped_items else item.name for item in player.inventory.items]
+        )
     #show the command list popup
     def show_commands_popup(self):
         lines = [f"{cmd:<20} {desc}" for cmd, desc in COMMANDS_HELP]
@@ -132,6 +135,9 @@ class GUI:
                     
                 elif command.split(' ', 1)[0] == "use" and ' ' in command:
                         output_message = self.game.use(command.split(' ', 1)[1])
+
+                elif command.split(' ', 1)[0] == "equip" and ' ' in command:
+                        output_message = self.game.equip(command.split(' ', 1)[1])
 
                 elif command == "":
                     output_message = None  # ignore an empty Enter press, no need for an error

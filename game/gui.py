@@ -1,9 +1,10 @@
 import FreeSimpleGUI as sg
 from game import Game
+from command_parser import Command_parser
 
 # Reference text for the "Commands" popup, sourced from the design spec.
 COMMANDS_HELP = [
-    ("travel <direction>", "Move to another location, e.g. 'travel north'"),
+    ("travel <direction>", "Move to another location"),
     ("search", "Search the location and pick up any items you find"),
     ("equip <item>", "Equip a valid item from your inventory"),
     ("engage", "If the location has a monster, engage it and start combat"),
@@ -87,8 +88,7 @@ class GUI:
             graph.draw_text(self.game.current_location.name, (130, 130), font='Any 14')
 
     def refresh_display(self, message=None):
-        #update the GUI. message overrides the location description in the main
-        #text window (e.g. a combat log, or a failed-travel message) when given.
+        #update the GUI
         player = self.game.player
         location = self.game.current_location
         text = message if message is not None else location.description
@@ -123,27 +123,8 @@ class GUI:
             if event == 'Enter' and not self.game_over:
                 output_message = None
                 command = values['-IN-'].lower().strip()
-
-                if command.split(' ', 1)[0] == "travel" and ' ' in command:
-                    output_message = self.game.move(command.split(' ', 1)[1])
-
-                elif command == "engage":
-                    output_message = self.game.engage()
-                    
-                elif command == "search":
-                    output_message = self.game.search()
-                    
-                elif command.split(' ', 1)[0] == "use" and ' ' in command:
-                        output_message = self.game.use(command.split(' ', 1)[1])
-
-                elif command.split(' ', 1)[0] == "equip" and ' ' in command:
-                        output_message = self.game.equip(command.split(' ', 1)[1])
-
-                elif command == "":
-                    output_message = None  # ignore an empty Enter press, no need for an error
-
-                else:
-                    output_message = f"Unknown command: '{command}'. Click Commands to see the full list."
+                cp = Command_parser()
+                output_message = cp.parse(command)
 
                 if output_message is not None:
                     self.draw_location_image()

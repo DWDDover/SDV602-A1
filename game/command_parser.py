@@ -2,8 +2,8 @@ from game import Game
 
 class Command_parser:
     
-    def __init__(self):
-        ...
+    def __init__(self, game):
+        self.game = game
         
     def parse(self, command):
         

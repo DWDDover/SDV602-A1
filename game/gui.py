@@ -123,7 +123,7 @@ class GUI:
             if event == 'Enter' and not self.game_over:
                 output_message = None
                 command = values['-IN-'].lower().strip()
-                cp = Command_parser()
+                cp = Command_parser(self.game)
                 output_message = cp.parse(command)
 
                 if output_message is not None:

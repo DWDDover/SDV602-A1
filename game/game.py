@@ -13,7 +13,6 @@ class Game:
     def move(self, direction):
         if direction in self.current_location.directions:
             self.current_location = self.current_location.directions[direction]
-            print(str(self.current_location.description))
             return str(self.current_location.description)
         else:
             return "You cannot travel there"

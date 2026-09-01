@@ -1,6 +1,5 @@
-from FreeSimpleGUI import Window, Button, Text, Input, Checkbox, WIN_CLOSED, Multiline, Radio
 from player import Player
-from items import rusty_sword, sharp_sword, fire_potion
+from items import rusty_sword, sharp_sword, fire_potion, health_potion
 from location import Location
 from enemies import rat, goblin, wizard
 from combat import Combat
@@ -18,6 +17,23 @@ class Game:
             return str(self.current_location.description)
         else:
             return "You cannot travel there"
+        
+    def search(self):
+        location = self.current_location
+
+        if not location.items:
+            return "You don't find anything"
+        
+        else:
+            item = location.items[0]
+            self.player.inventory.add_item(item)
+            return(f"You have found a {item.name}")
+        
+    def equip(self, item):
+        ...
+        
+    def use(self, item):
+        ...
         
     def engage(self):
         location = self.current_location
@@ -44,7 +60,7 @@ village = Location("Village", "You are in a small village consisting of some cru
                     {"north": "forest", "east": "lake", "south": "cave_mouth"}, [], [], "./images/village.png")
 
 forest = Location("Forest", "You are in a dense dark forest",
-                   {"west": "castle", "east": "clearing", "south": "village"}, [], [], "./images/forest.png")
+                   {"west": "castle", "east": "clearing", "south": "village"}, [], [health_potion], "./images/forest.png")
 
 clearing = Location("Clearing", "Your are in a sunlit forest clearing, you see a goblin wandering around",
                    {"west": "forest"}, [goblin], [], "./images/forest_clearing.png")

@@ -4,11 +4,10 @@ from game import Game
 # Reference text for the "Commands" popup, sourced from the design spec.
 COMMANDS_HELP = [
     ("travel <direction>", "Move to another location, e.g. 'travel north'"),
-    ("pick up <item>", "Pick up an item and add it to your inventory"),
-    ("equip <item>", "Equip a valid item from your inventory, e.g. a sword or helmet"),
+    ("search", "Search the location and pick up any items you find"),
+    ("equip <item>", "Equip a valid item from your inventory"),
     ("engage", "If the location has a monster, engage it and start combat"),
-    ("use", "Use a consumable item from your inventory"),
-    ("inventory", "List the items in your inventory"),
+    ("use <item>", "Use a consumable item from your inventory"),
     ("exit", "Exit the application from any screen"),
 ]
 
@@ -127,6 +126,9 @@ class GUI:
 
                 elif command == "engage":
                     output_message = self.game.engage()
+                    
+                elif command == "search":
+                    output_message = self.game.search()
 
                 elif command == "":
                     output_message = None  # ignore an empty Enter press, no need for an error

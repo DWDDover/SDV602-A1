@@ -32,8 +32,24 @@ class Game:
     def equip(self, item):
         ...
         
-    def use(self, item):
-        ...
+    def use(self, item_name):
+        
+        item = self.player.inventory.get_item_by_name(item_name)
+        
+        if self.player.inventory.has_item(item):
+            if item == health_potion:
+                self.player.current_hp = min(self.player.current_hp + item.heal, self.player.max_hp)
+                self.player.inventory.remove(item)
+                return f"You heal for {item.heal} HP"
+            elif item == fire_potion:
+                self.player.fire_resistant = True
+                self.player.inventory.remove(item)
+                return "You are now fire resistant"
+            else:
+                return "That item is not a consumable"
+            
+        if not item:
+            return "Cannot use that item"
         
     def engage(self):
         location = self.current_location

@@ -4,6 +4,13 @@ class Inventory:
 
     def has_item(self, item):
         return item in self.items
+    
+    def get_item_by_name(self, name):
+        name = name.lower()
+        for item in self.items:
+            if item.name.lower() == name:
+                return item
+        return None
 
     def add_item(self, item):
         if not self.has_item(item):

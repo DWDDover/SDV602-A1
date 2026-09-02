@@ -39,7 +39,7 @@ class Game:
 
         previous = getattr(self.player.equipment, item.slot)
         if previous is not None:
-            # remove the old item's stat bonus before applying the new one
+            #remove the old item's stat bonus before applying the new one
             self.player.attack -= previous.damage
             self.player.defense -= previous.block
 
@@ -88,7 +88,7 @@ class Game:
         return message
     
 
-#locations created initially with string references
+#all locations created initially with string references
 village = Location("Village", "You are in a small village consisting of some crude huts and farmland",
                     {"north": "forest", "east": "lake", "south": "cave_mouth"}, [], [], "./images/village.png")
 
@@ -116,7 +116,7 @@ cave_mouth = Location("Cave mouth", "You are at the mouth of a large dark cave",
 cave = Location("Cave", "You are in a large well lit cave surrounded by bones and rocks, you can see a rat wandering the clearing",
                    {"west": "village"}, [rat], [], "./images/cave.png")
 
-#location dictionary
+#location dictionary, links strings to actual objects
 locations = {
     "village": village, 
     "forest": forest,
@@ -129,7 +129,7 @@ locations = {
     "cave": cave 
     }
 
-#replace all the string values with the actual location objects
+#replace all the string values with the actual location objects now that they all exist
 for location in locations.values():
     location.directions = {
         direction: locations[name]

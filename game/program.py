@@ -10,6 +10,7 @@ try:
 except Exception:
     pass
 
+##add --headless to the run command for testing
 HEADLESS = '--headless' in sys.argv
 
 if __name__ == "__main__":

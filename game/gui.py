@@ -1,6 +1,7 @@
 import FreeSimpleGUI as sg
 from game import Game
 from command_parser import Command_parser
+from items import magic_orb
 
 # Reference text for the "Commands" popup, sourced from the design spec.
 COMMANDS_HELP = [
@@ -133,6 +134,9 @@ class GUI:
 
                     if self.game.player.current_hp <= 0:
                         self.end_game()
+                        
+                    elif magic_orb in self.game.player.inventory.items:
+                        self.win_game()
 
             elif event == 'Commands':
                 self.show_commands_popup()

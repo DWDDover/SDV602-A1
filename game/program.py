@@ -3,7 +3,8 @@ from gui import GUI
 import sys
 from testing import run_headless_tests
 
-#This fixes the display of the window on my home PC for some reason
+#This fixes the display of the window on my home PC for some reason.
+#AI found the solution for me
 try:
     import ctypes
     ctypes.windll.shcore.SetProcessDpiAwareness(1)

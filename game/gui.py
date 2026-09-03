@@ -18,6 +18,7 @@ class GUI:
     def __init__(self, game: Game):
         self.game = game
         self.game_over = False
+        self.game_won = False
         self.window = self.create_window(game)
         self.draw_location_image()
         self.refresh_display()
@@ -116,12 +117,20 @@ class GUI:
         self.window['-IN-'].update(disabled=True)
         self.window['Enter'].update(disabled=True)
         self.window['Commands'].update(disabled=True)
+        
+    def win_game(self):
+        #if the player wins disable all inputs except exit
+        self.game_won = True
+        self.window['-OUTPUT-'].update(value="You have defeated the wizard and won the game")
+        self.window['-IN-'].update(disabled=True)
+        self.window['Enter'].update(disabled=True)
+        self.window['Commands'].update(disabled=True)
 
     def run(self):
         while True:
             event, values = self.window.read()
 
-            if event == 'Enter' and not self.game_over:
+            if event == 'Enter' and not (self.game_over or self.game_won):
                 output_message = None
                 command = values['-IN-'].lower().strip()
                 cp = Command_parser(self.game)

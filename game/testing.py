@@ -15,7 +15,7 @@ class TestResult:
         else:
             status = "Failed"
             
-        return f"Test {status} for command: {self.command} with output: {self.output if self.passed else self.error}"
+        return f"Test {status} for command: {self.command}. With output: {self.output if self.passed else self.error}"
 
 class TestRun:
     def __init__(self):

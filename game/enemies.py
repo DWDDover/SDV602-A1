@@ -1,6 +1,6 @@
 from enemy import Enemy
 from items import helmet, key, magic_orb
-
+#module to intialise enemies so that they can be referenced in the locations
 rat = Enemy("Rat", "Rat with a helmet on", 20, 20, 2, helmet, "./images/rat.png")
 
 goblin = Enemy("Goblin", "Goblin with a key around its neck", 30, 30, 4, key, "./images/goblin.png")

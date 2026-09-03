@@ -3,7 +3,7 @@ from game import Game
 from command_parser import Command_parser
 from items import magic_orb
 
-# Reference text for the "Commands" popup, sourced from the design spec.
+#list of all commands for the commands popup
 COMMANDS_HELP = [
     ("travel <direction>", "Move to another location"),
     ("search", "Search the location and pick up any items you find"),
@@ -90,7 +90,7 @@ class GUI:
             graph.draw_text(self.game.current_location.name, (130, 130), font='Any 14')
 
     def refresh_display(self, message=None):
-        #update the GUI
+        #update the GUI with the most recent information
         player = self.game.player
         location = self.game.current_location
         text = message if message is not None else location.description
@@ -119,7 +119,7 @@ class GUI:
         self.window['Commands'].update(disabled=True)
         
     def win_game(self):
-        #if the player wins disable all inputs except exit
+        #if the player wins disable all inputs except exit and display the win message
         self.game_won = True
         self.window['-OUTPUT-'].update(value="You have defeated the wizard and won the game")
         self.window['-IN-'].update(disabled=True)

@@ -6,5 +6,6 @@ class Enemy:
         self.current_hp = current_hp
         self.damage = damage
         self.loot = loot
-        self.image = image
+        # image attribute to be used if gui is expanded for comabt images
+        # self.image = image
         

@@ -8,6 +8,7 @@ from item import Item
 class Game:
     def __init__(self):
         self.player = Player()
+        #start the game in the village location
         self.current_location = village
         
     def move(self, direction):
@@ -24,6 +25,8 @@ class Game:
             return "You don't find anything"
         
         else:
+            #location items are all a single item list 
+            #open to expansion if multiple items per loaction added
             item = location.items[0]
             self.player.inventory.add_item(item)
             return(f"You have found a {item.name}")
@@ -33,7 +36,7 @@ class Game:
 
         if item is None:
             return f"You don't have a {item_name}."
-
+        #check if item has an attribute
         if not hasattr(self.player.equipment, item.slot):
             return f"{item.name} cannot be equipped."
 
@@ -77,7 +80,7 @@ class Game:
         enemy = location.enemies[0]
         result = Combat(self.player, enemy).fight()
         message = '\n'.join(result["log"])
-
+        #result passed from the fight method in the combat class
         if result["outcome"] == "win":
             location.enemies.remove(enemy)
             loot = enemy.loot if isinstance(enemy.loot, Item) else None

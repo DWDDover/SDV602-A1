@@ -6,6 +6,7 @@ class Inventory:
         return item in self.items
     
     def get_item_by_name(self, name):
+        #method to help parse use and equip player input
         name = name.lower()
         for item in self.items:
             if item.name.lower() == name:
@@ -18,7 +19,3 @@ class Inventory:
             return True
 
         return False
-
-    def use_item(self, item, player):
-        print('Not Implemented')
-        pass

@@ -12,6 +12,7 @@ class Player:
         self.equipment = Loadout()
 
     def __str__(self):
+        #method to display player stats in gui
         gear = ', '.join(
             f"{slot}: {item.name}" if item else f"{slot}: (empty)"
             for slot, item in (

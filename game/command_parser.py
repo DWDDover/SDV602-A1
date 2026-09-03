@@ -1,7 +1,7 @@
 from game import Game
 
 class Command_parser:
-    
+    #commands from the GUI run method moved here for seperation
     def __init__(self, game):
         self.game = game
         

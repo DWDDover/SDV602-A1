@@ -1,5 +1,5 @@
 from item import Item
-
+#module to initialise items to be used as references in locations and enemies
 rusty_sword = Item("Rusty Sword", "weapon", damage=7)
 sharp_sword = Item("Sharp Sword", "weapon", damage=15)
 fire_potion = Item("Fire proof potion", "consumable")

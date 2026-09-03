@@ -2,6 +2,7 @@ from game import Game
 from command_parser import Command_parser
 
 class TestResult:
+    #class to return each test as an object
     def __init__(self, command, output=None, error=None):
         self.command = command
         self.output = output
@@ -9,6 +10,7 @@ class TestResult:
         self.passed = error is None
         
     def __str__(self):
+        #return the result as a readable string
         if self.passed == True:
             status = "Passed"
             
@@ -36,7 +38,7 @@ class TestRun:
             
 def run_headless_tests():
     test_run = TestRun()
-
+    #playthrough to test each game method
     playthroughs = [
         ["travel north", "travel east", "engage"],
         ["travel south", "search", "equip rusty sword"],
